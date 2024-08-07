@@ -1,61 +1,95 @@
-.container {
-    text-align: center;
-    margin: 20px;
-  }
-  
-  input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-  
-  li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: gray;
-  }
-  
-  .checkbox-container, .task-container, .delete-container {
-    background-color: red;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  
-  .task-container {
-    flex-grow: 1;
-  }
-  
-  .edit-input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-  .delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 5px 10px;
-  }
-  
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+input[type="text"], .edit-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 22px);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.checkbox-container, .task-container, .button-container {
+  display: flex;
+  align-items: center;
+}
+
+.task-container {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.task-text {
+  flex-grow: 1;
+}
+
+.edit-btn, .delete-btn {
+  background-color: #ff5c5c;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #ffa500;
+}
+
+.edit-input {
+  width: calc(100% - 22px);
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.task-checkbox {
+  cursor: pointer;
+}
