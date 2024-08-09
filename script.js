@@ -2,11 +2,14 @@ const taskInput = document.getElementById('taskInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
 
+let draggedItem = null;
+
 addButton.addEventListener('click', () => {
   const taskText = taskInput.value.trim();
   if (taskText !== '') {
     const li = document.createElement('li');
     li.className = 'task-item';
+    li.draggable = true;
     li.innerHTML = `
       <div class="checkbox-container">
         <input type="checkbox" class="task-checkbox">
@@ -60,6 +63,39 @@ addButton.addEventListener('click', () => {
         taskTextElement.style.textDecoration = 'none';
         li.style.backgroundColor = '';
       }
+    });
+
+    // Drag drop özelliğ
+    li.addEventListener('dragstart', () => {
+      draggedItem = li;
+      setTimeout(() => {
+        li.style.display = 'none';
+      }, 0);
+    });
+
+    li.addEventListener('dragend', () => {
+      setTimeout(() => {
+        li.style.display = 'flex';
+        draggedItem = null;
+      }, 0);
+    });
+
+    li.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    li.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      li.style.border = '2px dashed #ccc';
+    });
+
+    li.addEventListener('dragleave', () => {
+      li.style.border = 'none';
+    });
+
+    li.addEventListener('drop', () => {
+      li.style.border = 'none';
+      taskList.insertBefore(draggedItem, li);
     });
   }
 });
