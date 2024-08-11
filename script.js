@@ -57,11 +57,12 @@ addButton.addEventListener('click', () => {
 
     taskCheckbox.addEventListener('change', () => {
       if (taskCheckbox.checked) {
-        taskTextElement.style.textDecoration = 'line-through';
-        li.style.backgroundColor = '#d3d3d3';
+        li.classList.add('completed-task');
+        setTimeout(() => {
+          li.remove();
+        }, 500); 
       } else {
-        taskTextElement.style.textDecoration = 'none';
-        li.style.backgroundColor = '';
+        li.classList.remove('completed-task');
       }
     });
 

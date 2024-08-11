@@ -124,3 +124,21 @@ ul {
   height: 20px;
   cursor: pointer;
 }
+
+/* animasyon deneme */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.completed-task {
+  animation: fadeOut 1.5s forwards; 
+  background-color: #d3d3d3;
+  text-decoration: line-through;
+}
