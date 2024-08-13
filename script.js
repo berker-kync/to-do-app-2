@@ -12,6 +12,7 @@ addButton.addEventListener('click', () => {
     li.draggable = true;
     li.innerHTML = `
       <div class="checkbox-container">
+        <span>Checked?</span>
         <input type="checkbox" class="task-checkbox">
       </div>
       <div class="task-container">
