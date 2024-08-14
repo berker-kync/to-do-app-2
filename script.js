@@ -1,9 +1,3 @@
-const taskInput = document.getElementById('taskInput');
-const addButton = document.getElementById('addButton');
-const taskList = document.getElementById('taskList');
-
-let draggedItem = null;
-
 addButton.addEventListener('click', () => {
   const taskText = taskInput.value.trim();
   if (taskText !== '') {
@@ -28,14 +22,24 @@ addButton.addEventListener('click', () => {
     taskInput.value = '';
 
     const deleteButton = li.querySelector('.delete-btn');
+    const taskCheckbox = li.querySelector('.task-checkbox');
+
     deleteButton.addEventListener('click', () => {
-      li.remove();
+      li.classList.add('completed-task'); // Add the fade-out animation
+      setTimeout(() => {
+        li.remove(); // Remove the task after the animation completes
+      }, 1500); // Match the duration of the fade-out animation (1.5s)
     });
 
+    // Checkbox event: No additional functionality, just check/uncheck
+    taskCheckbox.addEventListener('change', () => {
+      // You can handle any specific behavior here if needed, but currently, nothing happens
+    });
+
+    // Edit and drag-and-drop functionality remains unchanged
     const editButton = li.querySelector('.edit-btn');
     const editInput = li.querySelector('.edit-input');
     const taskTextElement = li.querySelector('.task-text');
-    const taskCheckbox = li.querySelector('.task-checkbox');
 
     editButton.addEventListener('click', () => {
       editInput.value = taskTextElement.textContent;
@@ -56,18 +60,6 @@ addButton.addEventListener('click', () => {
       }
     });
 
-    taskCheckbox.addEventListener('change', () => {
-      if (taskCheckbox.checked) {
-        li.classList.add('completed-task');
-        setTimeout(() => {
-          li.remove();
-        }, 500); 
-      } else {
-        li.classList.remove('completed-task');
-      }
-    });
-
-    // Drag drop özelliğ
     li.addEventListener('dragstart', () => {
       draggedItem = li;
       setTimeout(() => {
