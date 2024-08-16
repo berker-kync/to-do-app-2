@@ -156,3 +156,9 @@ ul {
   background-color: #d3d3d3;
   text-decoration: line-through;
 }
+
+.due-date-time {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}

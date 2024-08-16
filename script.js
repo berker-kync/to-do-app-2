@@ -1,16 +1,19 @@
 addButton.addEventListener('click', () => {
   const taskText = taskInput.value.trim();
+  const dueDate = document.getElementById('dueDateInput').value;
+  const dueTime = document.getElementById('dueTimeInput').value;
+
   if (taskText !== '') {
     const li = document.createElement('li');
     li.className = 'task-item';
     li.draggable = true;
     li.innerHTML = `
       <div class="checkbox-container">
-        <span>Checked?</span>
         <input type="checkbox" class="task-checkbox">
       </div>
       <div class="task-container">
         <span class="task-text">${taskText}</span>
+        <div class="due-date-time">${dueDate} ${dueTime}</div>
         <input type="text" class="edit-input" style="display: none;">
       </div>
       <div class="button-container">
@@ -20,6 +23,8 @@ addButton.addEventListener('click', () => {
     `;
     taskList.appendChild(li);
     taskInput.value = '';
+    document.getElementById('dueDateInput').value = '';
+    document.getElementById('dueTimeInput').value = '';
 
     const deleteButton = li.querySelector('.delete-btn');
     const taskCheckbox = li.querySelector('.task-checkbox');
