@@ -175,3 +175,31 @@ input[type="date"], input[type="time"], #addButton {
   text-align: center; 
   display: block; 
 }
+
+.archive-container {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.archived-task {
+  background-color: #e0e0e0;
+  text-decoration: line-through;
+}
+
+.restore-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  border-radius: 25px;
+  padding: 8px 15px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.restore-btn:hover {
+  background-color: #45a049;
+}
