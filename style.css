@@ -157,24 +157,39 @@ ul {
   text-decoration: line-through;
 }
 
-input[type="date"], input[type="time"], #addButton {
+input[type="date"], input[type="time"] {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 25px;
-  width: 200px; 
+  width: 200px;  
   font-size: 16px;
   margin-bottom: 10px;
   display: inline-block; 
 }
 
 
-.due-date-time {
-  font-size: 14px;
-  color: #888;
-  margin-top: 10px; 
-  text-align: center; 
-  display: block; 
+.task-container {
+  flex-grow: 1;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  text-align: center;
 }
+
+.due-date-container {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.due-date, .due-time {
+  display: block;
+  font-size: 14px;
+  color: #555;
+}
+
+
+
 
 .archive-container {
   margin-top: 40px;
