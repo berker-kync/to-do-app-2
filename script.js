@@ -1,120 +1,80 @@
-const taskInput = document.getElementById('taskInput');
-const addButton = document.getElementById('addButton');
-const taskList = document.getElementById('taskList');
-const archiveList = document.getElementById('archiveList');
-const dueDateInput = document.getElementById('dueDateInput');
-const dueTimeInput = document.getElementById('dueTimeInput');
+document.getElementById("addButton").addEventListener("click", addTask);
 
-let draggedItem = null;
+function addTask() {
+    const taskInput = document.getElementById("taskInput").value;
+    const dueDateInput = document.getElementById("dueDateInput").value;
+    const dueTimeInput = document.getElementById("dueTimeInput").value;
+    const prioritySelect = document.getElementById("prioritySelect").value;
 
-addButton.addEventListener('click', () => {
-  const taskText = taskInput.value.trim();
-  const dueDate = dueDateInput.value;
-  const dueTime = dueTimeInput.value;
+    if (taskInput === "") {
+        alert("Please enter a task.");
+        return;
+    }
 
-  if (taskText !== '') {
-    const li = document.createElement('li');
-    li.className = 'task-item';
-    li.draggable = true;
-    li.innerHTML = `
-    <div class="checkbox-container">
-      <span>Checked?</span>
-      <input type="checkbox" class="task-checkbox">
-    </div>
-    <div class="task-container">
-      <span class="task-text">${taskText}</span>
-      <div class="due-date-time">
-        <span class="due-date">${dueDate}</span>
-        <span class="due-time">${dueTime}</span>
-      </div>
-      <input type="text" class="edit-input" style="display: none;">
-    </div>
-    <div class="button-container">
-      <button class="edit-btn">Edit</button>
-      <button class="delete-btn">Delete</button>
-    </div>
-  `;
-  
-    taskList.appendChild(li);
-    taskInput.value = '';
-    dueDateInput.value = '';
-    dueTimeInput.value = '';
+    const taskItem = document.createElement("li");
+    taskItem.className = "task-item " + prioritySelect;
 
-    const deleteButton = li.querySelector('.delete-btn');
-    deleteButton.addEventListener('click', () => {
-      archiveTask(li);
-    });
+    const taskText = document.createElement("span");
+    taskText.className = "task-text";
+    taskText.textContent = taskInput;
 
-    const editButton = li.querySelector('.edit-btn');
-    const editInput = li.querySelector('.edit-input');
-    const taskTextElement = li.querySelector('.task-text');
-    const taskCheckbox = li.querySelector('.task-checkbox');
+    const priorityText = document.createElement("span");
+    priorityText.className = "priority-text";
+    priorityText.textContent = "Priority: " + capitalizeFirstLetter(prioritySelect);
 
-    editButton.addEventListener('click', () => {
-      editInput.value = taskTextElement.textContent;
-      editInput.style.display = 'inline';
-      taskTextElement.style.display = 'none';
-      editInput.focus();
-    });
+    const dueDateContainer = document.createElement("div");
+    dueDateContainer.className = "due-date-container";
+    const dueDate = document.createElement("span");
+    dueDate.className = "due-date";
+    dueDate.textContent = "Due Date: " + dueDateInput;
+    const dueTime = document.createElement("span");
+    dueTime.className = "due-time";
+    dueTime.textContent = "Due Time: " + dueTimeInput;
 
-    editInput.addEventListener('blur', () => {
-      taskTextElement.textContent = editInput.value;
-      editInput.style.display = 'none';
-      taskTextElement.style.display = 'inline';
-    });
+    dueDateContainer.appendChild(dueDate);
+    dueDateContainer.appendChild(dueTime);
 
-    editInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        editInput.blur();
-      }
-    });
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-btn";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", () => deleteTask(taskItem));
 
-    taskCheckbox.addEventListener('change', () => {
-      if (taskCheckbox.checked) {
-        li.classList.add('completed-task');
-      } else {
-        li.classList.remove('completed-task');
-      }
-    });
+    taskItem.appendChild(taskText);
+    taskItem.appendChild(priorityText); 
+    taskItem.appendChild(dueDateContainer);
+    taskItem.appendChild(deleteButton);
 
-    // Drag and drop functionality
-    li.addEventListener('dragstart', () => {
-      draggedItem = li;
-      setTimeout(() => {
-        li.style.display = 'none';
-      }, 0);
-    });
+    document.getElementById("taskList").appendChild(taskItem);
 
-    li.addEventListener('dragend', () => {
-      setTimeout(() => {
-        li.style.display = 'flex';
-        draggedItem = null;
-      }, 0);
-    });
+    document.getElementById("taskInput").value = "";
+    document.getElementById("dueDateInput").value = "";
+    document.getElementById("dueTimeInput").value = "";
+    document.getElementById("prioritySelect").value = "low"; 
+}
 
-    li.addEventListener('dragover', (e) => {
-      e.preventDefault();
-    });
+function deleteTask(taskItem) {
+    taskItem.classList.add("completed-task");
+    setTimeout(() => {
+        document.getElementById("archiveList").appendChild(taskItem);
+        taskItem.classList.remove("completed-task");
+        taskItem.classList.add("archived-task");
 
-    li.addEventListener('dragenter', (e) => {
-      e.preventDefault();
-      li.style.border = '2px dashed #ccc';
-    });
+        const restoreButton = document.createElement("button");
+        restoreButton.className = "restore-btn";
+        restoreButton.textContent = "Restore";
+        restoreButton.addEventListener("click", () => restoreTask(taskItem));
 
-    li.addEventListener('dragleave', () => {
-      li.style.border = 'none';
-    });
+        taskItem.appendChild(restoreButton);
+    }, 1500);
+}
 
-    li.addEventListener('drop', () => {
-      li.style.border = 'none';
-      taskList.insertBefore(draggedItem, li);
-    });
-  }
-});
+function restoreTask(taskItem) {
+    taskItem.classList.remove("archived-task");
+    document.getElementById("taskList").appendChild(taskItem);
+    const restoreButton = taskItem.querySelector(".restore-btn");
+    restoreButton.remove();
+}
 
-function archiveTask(taskElement) {
-  const archivedTask = taskElement.cloneNode(true);
-  archivedTask.querySelector('.delete-btn').remove(); 
-  archiveList.appendChild(archivedTask);
-  taskElement.remove();
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
